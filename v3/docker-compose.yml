@@ -1,7 +1,7 @@
 services:
 
   chroma:
-    image: chromadb/chroma:latest
+    image: ghcr.io/chroma-core/chroma:latest
     container_name: chromav3
     ports:
       - "8000:8000"
