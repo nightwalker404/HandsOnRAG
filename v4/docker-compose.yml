@@ -1,0 +1,33 @@
+services:
+
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chromav4
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/data
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollamav4
+    ports:
+      - "12434:11434"
+    volumes:
+      - /usr/share/ollama/.ollama:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    
+volumes:
+  chroma_data:
