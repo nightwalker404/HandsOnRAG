@@ -1,13 +1,14 @@
 from pypdf import PdfReader
 import ollama
 import chromadb
+from db import save_to_chromadb
 
 def extract_text_from_pdf(pdf_path: str) -> str:
     """ Extract all text from a PDF """
     pdf = PdfReader(pdf_path)
     text = ""
 
-    for page in pdf:
+    for page in pdf.pages:
         page_text = page.extract_text()
         if page_text:
             text += page_text + "\n\n"
@@ -50,20 +51,10 @@ def embed_chunks(chunks: list[str], ollama_client: ollama.Client, model: str) ->
         embeddings.append(response["embeddings"][0])
     return embeddings
 
-def save_to_chromadb(chunks: list[str], embeddings: list[list[float]], collection: chromadb.Collection, file_name: str):
-    """Add documents and chunks to ChromaDB."""
-    for i, chunk in enumerate(chunks):
-        collection.add(
-            ids=f"chunk_{i}",
-            documents=chunk,
-            embeddings=embeddings[i],
-            metadatas=[{"source": file_name}]
-        )   
-
 
 def embedding(embed_model: str, ollama_client: ollama.Client, collection: chromadb.Collection):
     """ the main embedding part to run """
-    file_name = "data/docs/test.pdf"
+    file_name = "data/docs/2506.18027v3.pdf"
     text = extract_text_from_pdf(file_name)
     chunks = split_text(text=text)
     embeddings = embed_chunks(chunks=chunks, ollama_client=ollama_client, model=embed_model)
