@@ -1,0 +1,7 @@
+Python is a programming language.
+Python is easy to learn and readable.
+Variables in Python are declared without type.
+Python uses indentation for code blocks.
+Lists are ordered collections in Python.
+Dictionaries store key-value pairs.
+Functions are defined with the def keyword.
