@@ -1,14 +1,13 @@
 from chromadb import Documents, EmbeddingFunction, Embeddings
 from .configs import get_settings
-import ollama
+from .ollama_client import get_ollama_client
 
 settings = get_settings()
 
 class OllamaEmbeddingFunction(EmbeddingFunction):
-    def __init__(self, model: str = None, base_url: str = None) -> None:
+    def __init__(self, model: str = None) -> None:
         self.model = model or settings.embedding_model
-        self.base_url = base_url or settings.ollama_url
-        self.client = ollama.Client(host=self.base_url)
+        self.client = get_ollama_client()
 
     def __call__(self, input: Documents) -> Embeddings:
         embeddings = []
