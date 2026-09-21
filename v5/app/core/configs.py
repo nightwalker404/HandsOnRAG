@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 ENV_PATH = BASE_DIR / ".env"
+DOCS_DIR = BASE_DIR / "data" / "docs"
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -16,6 +17,7 @@ class Settings(BaseSettings):
     ### APP CONFIG ###
     app_host: str = Field(default="0.0.0.0")
     app_port: int = Field(default=8080)
+    doc_dir: Path = Field(default=DOCS_DIR)
 
     ### AI BASE VARS ###
     llm_model: str = Field(..., validation_alias="LLM_MODEL")
