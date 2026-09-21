@@ -12,7 +12,7 @@ services:
       - garage_meta:/var/lib/garage/meta
       - garage_data:/var/lib/garage/data
     env_file:
-      - ../.env
+      - .env
     environment:
       - RUST_LOG=info
       - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
