@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     garage_endpoint: str = Field(..., validation_alias="GARAGE_ENDPOINT")
     garage_region: str = Field(..., validation_alias="GARAGE_REGION")
     garage_access_key: str = Field(..., validation_alias="GARAGE_ACCESS_KEY")
-    garage_scret_key: str = Field(..., validation_alias="GARAGE_SECRET_KEY")
+    garage_secret_key: str = Field(..., validation_alias="GARAGE_SECRET_KEY")
     garage_bucket: str = Field(..., validation_alias="GARAGE_BUCKET")
 
 @lru_cache
