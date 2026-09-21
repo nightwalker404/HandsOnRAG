@@ -1,6 +1,6 @@
 from functools import lru_cache
 import ollama
-from app.core.config import get_settings
+from .configs import get_settings
 
 settings = get_settings()
 
