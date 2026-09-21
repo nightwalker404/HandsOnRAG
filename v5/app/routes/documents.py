@@ -3,7 +3,7 @@ from app.services.document_service import ingest_document
 
 router = APIRouter()
 
-@router.post("/documents")
+@router.post("/documents/pdf")
 async def upload_document(file: UploadFile):
     file_bytes = await file.read()
     ids = ingest_document(file_bytes=file_bytes, source=file.filename)
