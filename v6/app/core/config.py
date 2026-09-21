@@ -19,9 +19,10 @@ class Settings(BaseSettings):
     ### EMBEDDING MODEL ###
     embedding_model: str = Field(..., validation_alias="EMBEDDING_MODEL")
 
-    ### CHROMA DB ###
-    chroma_host: str = Field(..., validation_alias="CHROMA_HOST")
-    chroma_port: int = Field(..., validation_alias="CHROMA_PORT")
+    ### Qdrant ###
+    QDRANT_HOST: str = Field(..., validation_alias="QDRANT_HOST")
+    QDRANT_PORT: int = Field(..., validation_alias="QDRANT_PORT")
+    QDRANT_COLLECTION: str = Field(..., validation_alias="QDRANT_COLLECTION")
 
 @lru_cache
 def get_settings():
