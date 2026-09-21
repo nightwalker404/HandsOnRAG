@@ -6,5 +6,5 @@ router = APIRouter()
 @router.post("/documents/pdf")
 async def upload_document(file: UploadFile):
     file_bytes = await file.read()
-    ids = ingest_document(file_bytes=file_bytes, source=file.filename)
-    return {"stored_chunk_ids": ids}
+    result = ingest_document(file_bytes=file_bytes, source=file.filename)
+    return result
