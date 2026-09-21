@@ -55,9 +55,24 @@ The API will be available at `http://localhost:8080`.
 ### `POST /api/documents/pdf`
 Upload a PDF for ingestion.
 
+**curl**
 ```bash
 curl -X POST http://localhost:8080/api/documents/pdf \
   -F "file=@handbook.pdf"
+```
+
+**Python**
+```python
+import requests
+
+url = "http://localhost:8080/api/documents/pdf"
+
+with open("handbook.pdf", "rb") as f:
+    files = {"file": ("handbook.pdf", f, "application/pdf")}
+    response = requests.post(url, files=files)
+
+response.raise_for_status()
+print(response.json())
 ```
 
 **Response**
@@ -71,10 +86,27 @@ curl -X POST http://localhost:8080/api/documents/pdf \
 ### `POST /api/chat`
 Ask a question grounded in the uploaded documents.
 
+**curl**
 ```bash
 curl -X POST http://localhost:8080/api/chat \
   -H "Content-Type: application/json" \
   -d '{"question": "Where is the server room?", "top_k": 5}'
+```
+
+**Python**
+```python
+import requests
+
+url = "http://localhost:8080/api/chat"
+
+payload = {"question": "Where is the server room?", "top_k": 5}
+response = requests.post(url, json=payload)
+
+response.raise_for_status()
+data = response.json()
+
+print(data["answer"])
+print(data["sources"])
 ```
 
 **Response**
